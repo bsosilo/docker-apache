@@ -10,7 +10,7 @@ ENV LANG=${OS_LOCALE} \
 
 ENV APACHE_CONF_DIR=/etc/apache2 \
     PHP_CONF_DIR=/etc/php/5.6 \
-    PHP_DATA_DIR=/var/lib/php
+    PHP_DATA_DIR=/var/lib/php \
     WINEDEBUG=fixme-all \
     WINEARCH=win32 \
     DISPLAY=:100
@@ -33,7 +33,7 @@ RUN	\
   && dpkg -i ttf-mscorefonts-installer_3.6_all.deb \
   && winecfg \
   && cp -R /root/.wine /var/www \
-  && chown -R www-data:www-data /var/www/.wine
+  && chown -R www-data:www-data /var/www/.wine \
   # Apache settings
   && cp /dev/null ${APACHE_CONF_DIR}/conf-available/other-vhosts-access-log.conf \
   && rm ${APACHE_CONF_DIR}/sites-enabled/000-default.conf ${APACHE_CONF_DIR}/sites-available/000-default.conf \
