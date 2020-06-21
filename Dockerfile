@@ -1,7 +1,7 @@
 FROM ubuntu:bionic
 MAINTAINER bsosilo <bsosilo@solusiti.com>
 
-ENV OS_LOCALE="en_ID.UTF-8"
+ENV OS_LOCALE="en_US.UTF-8"
 RUN apt-get update && apt-get install -y locales && locale-gen ${OS_LOCALE}
 ENV LANG=${OS_LOCALE} \
     LANGUAGE=${OS_LOCALE} \
