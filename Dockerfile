@@ -11,7 +11,10 @@ ENV LANG=${OS_LOCALE} \
 ENV APACHE_CONF_DIR=/etc/apache2 \
     PHP_CONF_DIR=/etc/php/5.6 \
     PHP_DATA_DIR=/var/lib/php
-
+    WINEDEBUG=fixme-all \
+    WINEARCH=win32 \
+    DISPLAY=:100
+    
 COPY entrypoint.sh /sbin/entrypoint.sh
 
 RUN	\
@@ -28,10 +31,13 @@ RUN	\
   && apt-get install -y --install-recommends wine32 xvfb \
   && wget http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb \
   && dpkg -i ttf-mscorefonts-installer_3.6_all.deb \
+  && winecfg \
+  && cp -R /root/.wine /var/www \
+  && chown -R www-data:www-data /var/www/.wine
   # Apache settings
   && cp /dev/null ${APACHE_CONF_DIR}/conf-available/other-vhosts-access-log.conf \
   && rm ${APACHE_CONF_DIR}/sites-enabled/000-default.conf ${APACHE_CONF_DIR}/sites-available/000-default.conf \
-  && a2enmod rewrite php5.6 \
+  && a2enmod rewrite php5.6 headers expires \
 	# Cleaning
 	&& apt-get purge -y --auto-remove $BUILD_DEPS \
 	&& apt-get autoremove -y \
