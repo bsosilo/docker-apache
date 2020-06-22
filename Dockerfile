@@ -52,7 +52,7 @@ COPY ./configs/apache2.conf ${APACHE_CONF_DIR}/apache2.conf
 COPY ./configs/app.conf ${APACHE_CONF_DIR}/sites-enabled/app.conf
 COPY ./configs/php.ini  ${PHP_CONF_DIR}/apache2/conf.d/custom.ini
 
-WORKDIR /var/www/
+WORKDIR /var/www/html
 
 EXPOSE 80 443
 
